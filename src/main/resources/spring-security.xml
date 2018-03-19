@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security-4.2.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+	
+
+	<context:annotation-config/>
+	<bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">
+    	<property name="resources" value="classpath:application.yml"/>
+	</bean>
+	<context:property-placeholder properties-ref="yamlProperties"/>
+	
+	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
+
+	<security:authentication-manager id="authenticationManager">
+		<security:authentication-provider ref="ldapAuthProvider"></security:authentication-provider>		
+	</security:authentication-manager> 
+
+	<bean id="ldapContext" 	class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">		
+	    <constructor-arg value="${ldap.url}"/> 
+		<property name="userDn" value="${ldap.user.dn}" />
+	</bean>
+     
+	<bean id="ldapAuthProvider"
+		class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+		<constructor-arg  >
+			<bean
+				class="org.springframework.security.ldap.authentication.BindAuthenticator">
+				<constructor-arg  ref="ldapContext" />
+				<property name="userDnPatterns">
+					<list>
+						<value>${ldap.user.dn}</value>
+					</list>
+				</property>
+				<property name="userAttributes">
+					<list>
+						<value>${ldap.user.attribute}</value>
+						<value>${ldap.user.role.attribute}</value>
+					</list>
+				</property>
+			</bean>
+		</constructor-arg>
+		<constructor-arg >
+			<bean id="ldapAuthoritiesPopulator"
+				class="org.springframework.security.ldap.authentication.NullLdapAuthoritiesPopulator">			
+			</bean>
+		</constructor-arg>
+		<property name="userDetailsContextMapper">
+			<bean class="com.oauth.server.AttributeLdapUserDetailsMapper">
+				<property name="convertToUpperCase" value="true" />
+				<property name="roleAttributes">
+					<list>
+						<value>${ldap.user.role.attribute}</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>

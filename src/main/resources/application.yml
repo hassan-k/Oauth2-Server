@@ -1,0 +1,52 @@
+server:
+ port: 9001
+ contextPath: /
+---
+spring:
+ profiles.active: dev
+---
+spring:
+ profiles: dev
+logging:
+ file: ./logs/dev_app.log
+ pattern:
+  console: "%d %-5level %logger : %msg%n"
+  file: "%d %-5level [%thread] %logger : %msg%n"
+ level:
+  org.springframework.web: DEBUG
+  guru.springframework.controllers: DEBUG
+  org.hibernate: DEBUG
+---
+spring:
+ profiles: production
+logging:
+ file: ./logs/production_app.log
+ pattern:
+  file: "%d %-5level [%thread] %logger{0} : %msg%n"
+ level:
+  org.springframework.web: WARN
+  guru.springframework.controllers: WARN
+  org.hibernate: WARN
+---
+ldap:
+  url: ldap://<hostname>:<port>
+  user:
+    dn: uid=--,ou=--
+    attribute: uid
+    role:
+      attribute: --
+---
+token:
+  validity:
+    access: 120
+    refresh: 1800
+---    
+RSA:
+ key:
+  jksstore: classpath:/keypack.jks
+  password: --
+---
+auth:
+ username: Oauth-Trusted-Client-
+ password: --
+ keyjks: keypack
