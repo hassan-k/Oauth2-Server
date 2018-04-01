@@ -71,7 +71,7 @@ http://localhost:9001/api/users/?access_token=3525d0e4d88149e79f91bcfd18259109
 ## How to Run
 Do the following steps:
 - Add your LDAP server information in application.yml file.
-- generate a keystore and add it in resourses folder.
+- Create a keypack.jks and replace the existing one in resourses folder.
+- Add keypack password in application.yml
 - Add a password for Basic Auth in application.yml
-- 
 
