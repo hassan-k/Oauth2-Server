@@ -67,3 +67,8 @@ http://localhost:9001/oauth/token?grant_type=refresh_token&refresh_token=094b7d2
 ? Access the resource by providing an access token using access_token query param with request. For example:
 
 http://localhost:9001/api/users/?access_token=3525d0e4d88149e79f91bcfd18259109
+
+## How to Run
+Do the following steps:
+- aa
+
