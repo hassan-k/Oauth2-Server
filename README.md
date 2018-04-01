@@ -3,7 +3,7 @@ Oauth2 security for Microservices
 
 OAuth 2 is an authorization framework that enables applications to obtain limited access to user accounts on an HTTP service, such as Facebook, GitHub, and DigitalOcean.
 
-![alt text](https://github.com/hassan-k/Oauth2-Server/master/SM3.png)
+![alt text](https://raw.githubusercontent.com/hassan-k/Oauth2-Server/master/SM3.png)
 
 
 Roles
