@@ -74,4 +74,5 @@ Do the following steps:
 - Create a keypack.jks and replace the existing one in resourses folder.
 - Add keypack password in application.yml
 - Add a password for Basic Auth in application.yml
+- Run the project
 
